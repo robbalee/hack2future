@@ -25,19 +25,14 @@
         <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-white mb-4">
-                Car Insurance Claims Fraud Prediction Demo
+                Demo for team - Made with ❤️  
             </h1>
-            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
-                This is a simulated demonstration for concept illustration purposes. 
-                Enter car insurance claim details below to see a mock fraud prediction analysis using 
-                machine learning algorithms.
-            </p>
         </div>
 
         <!-- Main Content Card -->
         <div class="bg-gray-800 rounded-lg shadow-lg p-8 border border-gray-700">
             <!-- Input Form -->
-            <form id="claimForm" class="space-y-6">
+            <form id="claimForm" class="space-y-6" enctype="multipart/form-data">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Claim ID -->
                     <div>
@@ -70,6 +65,37 @@
                             required
                         >
                     </div>
+                </div>
+
+                <!-- PDF Document Upload -->
+                <div>
+                    <label for="pdfDocument" class="block text-sm font-medium text-gray-300 mb-2">
+                        PDF Document (Optional)
+                    </label>
+                    <input 
+                        type="file" 
+                        id="pdfDocument" 
+                        name="pdfDocument" 
+                        accept=".pdf"
+                        class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                    >
+                    <p class="text-xs text-gray-400 mt-1">Upload insurance documents, police reports, or other relevant PDFs</p>
+                </div>
+
+                <!-- Image Evidence Upload -->
+                <div>
+                    <label for="imageEvidence" class="block text-sm font-medium text-gray-300 mb-2">
+                        Image Evidence (Optional)
+                    </label>
+                    <input 
+                        type="file" 
+                        id="imageEvidence" 
+                        name="imageEvidence" 
+                        accept="image/*"
+                        multiple
+                        class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                    >
+                    <p class="text-xs text-gray-400 mt-1">Upload photos of damage, accident scene, or other visual evidence (multiple files allowed)</p>
                 </div>
 
                 <!-- Brief Description -->

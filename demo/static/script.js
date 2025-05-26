@@ -16,27 +16,75 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Prevent default form submission
         
         // Get form data
-        const formData = {
-            claimId: document.getElementById('claimId').value,
-            claimAmount: parseFloat(document.getElementById('claimAmount').value),
-            description: document.getElementById('description').value
+        const formData = new FormData();
+        formData.append('claimId', document.getElementById('claimId').value);
+        formData.append('claimAmount', document.getElementById('claimAmount').value);
+        formData.append('description', document.getElementById('description').value);
+        
+        // Add file uploads
+        const pdfFile = document.getElementById('pdfDocument').files[0];
+        if (pdfFile) {
+            formData.append('pdfDocument', pdfFile);
+        }
+        
+        const imageFiles = document.getElementById('imageEvidence').files;
+        for (let i = 0; i < imageFiles.length; i++) {
+            formData.append('imageEvidence', imageFiles[i]);
+        }
+        
+        // Convert FormData to regular object for validation
+        const formDataObj = {
+            claimId: formData.get('claimId'),
+            claimAmount: parseFloat(formData.get('claimAmount')),
+            description: formData.get('description'),
+            pdfDocument: pdfFile,
+            imageEvidence: imageFiles
         };
         
         // Validate form data
-        if (!validateForm(formData)) {
+        if (!validateForm(formDataObj)) {
             return;
         }
         
         // Show loading indicator
         showLoading();
         
-        // Simulate API call delay
-        setTimeout(() => {
-            const prediction = generateFraudPrediction(formData);
-            displayPredictionResult(prediction, formData);
-            hideLoading();
-        }, 2000); // 2 second delay for realism
+        // Submit form data to backend
+        submitClaimData(formData);
     });
+    
+    /**
+     * Submits claim data to the backend
+     */
+    function submitClaimData(formData) {
+        fetch('/submit_claim', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Convert FormData back to object for prediction
+                const claimDataObj = {
+                    claimId: formData.get('claimId'),
+                    claimAmount: parseFloat(formData.get('claimAmount')),
+                    description: formData.get('description'),
+                    uploadedFiles: data.uploadedFiles
+                };
+                
+                const prediction = generateFraudPrediction(claimDataObj);
+                displayPredictionResult(prediction, claimDataObj);
+            } else {
+                alert('Error submitting claim: ' + data.error);
+            }
+            hideLoading();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error submitting claim. Please try again.');
+            hideLoading();
+        });
+    }
     
     /**
      * Validates the form data
@@ -144,6 +192,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Add auto insurance specific factors
+        if (claimData.uploadedFiles && claimData.uploadedFiles.length > 0) {
+            factors.push(`Supporting documentation provided (${claimData.uploadedFiles.length} files uploaded)`);
+        } else {
+            factors.push('Limited documentation provided - may require additional verification');
+        }
+        
         factors.push('Auto insurance claim analysis completed');
         
         // Add some random factors for variety
