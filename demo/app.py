@@ -212,7 +212,14 @@ def list_claims():
 
 if __name__ == '__main__':
     # Run the Flask application
-    # debug=True enables auto-reload when files change during development
+    # Use Azure's PORT environment variable or default to 5000 for local development
+    port = int(os.environ.get('PORT', 5000))
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    
     print("Starting Insurance Claims Fraud Prediction Demo...")
-    print("Open your browser and navigate to: http://localhost:5000")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    if debug_mode:
+        print("Open your browser and navigate to: http://localhost:5000")
+    else:
+        print(f"Production server starting on port {port}")
+    
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
