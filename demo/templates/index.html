@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Insurance Claims Fraud Prediction Demo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fraud-low': '#10b981',
+                        'fraud-medium': '#f59e0b',
+                        'fraud-high': '#ef4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Car Insurance Claims Fraud Prediction Demo
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                This is a simulated demonstration for concept illustration purposes. 
+                Enter car insurance claim details below to see a mock fraud prediction analysis using 
+                machine learning algorithms.
+            </p>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <!-- Input Form -->
+            <form id="claimForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Claim ID -->
+                    <div>
+                        <label for="claimId" class="block text-sm font-medium text-gray-700 mb-2">
+                            Claim ID
+                        </label>
+                        <input 
+                            type="text" 
+                            id="claimId" 
+                            name="claimId" 
+                            placeholder="Enter claim ID (e.g., CLM-2025-001)"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required
+                        >
+                    </div>
+
+                    <!-- Claim Amount -->
+                    <div>
+                        <label for="claimAmount" class="block text-sm font-medium text-gray-700 mb-2">
+                            Claim Amount ($)
+                        </label>
+                        <input 
+                            type="number" 
+                            id="claimAmount" 
+                            name="claimAmount" 
+                            placeholder="Enter claim amount"
+                            min="0"
+                            step="0.01"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Brief Description -->
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                        Brief Description
+                    </label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        rows="4"
+                        placeholder="Provide a brief description of the claim..."
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button 
+                        type="submit" 
+                        id="submitBtn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md shadow-sm transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        Submit Claim for Analysis
+                    </button>
+                </div>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="hidden text-center mt-8">
+                <div class="inline-flex items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-blue-600 font-medium">Analyzing claim for fraud indicators...</span>
+                </div>
+            </div>
+
+            <!-- Prediction Display Area -->
+            <div id="predictionResult" class="hidden mt-8 p-6 bg-gray-50 rounded-lg border">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Fraud Prediction Result</h3>
+                
+                <!-- Fraud Likelihood -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-700">Fraud Likelihood:</span>
+                        <span id="fraudLikelihood" class="px-3 py-1 rounded-full text-sm font-semibold"></span>
+                    </div>
+                </div>
+
+                <!-- Fraud Score -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-700">Fraud Score:</span>
+                        <span id="fraudScore" class="text-lg font-bold text-gray-900"></span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="fraudScoreBar" class="h-2 rounded-full transition-all duration-500 ease-out"></div>
+                    </div>
+                </div>
+
+                <!-- Analysis Details -->
+                <div id="analysisDetails" class="mt-4 p-4 bg-white rounded border">
+                    <h4 class="font-medium text-gray-900 mb-2">Analysis Summary:</h4>
+                    <p id="analysisText" class="text-sm text-gray-600"></p>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="mt-4 text-xs text-gray-500 italic">
+                    <strong>Disclaimer:</strong> This is a demonstration using simulated data and mock predictions. 
+                    Results are not based on real fraud detection algorithms and should not be used for actual decision-making.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
