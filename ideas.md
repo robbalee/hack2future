@@ -87,3 +87,36 @@ By leveraging AI-driven insights, businesses can enhance customer experience, im
 * Example:
   * How many questions are available for Java FSD?
   * Is the number of questions sufficing for L1?
+
+# approach
+1. person -> previous claim and history
+2. place and time
+3. type of cliem
+4. consistance 
+
+# ai fine tuning
+1. train a new ai
+2. explain your decision
+a. system prompt - reseach mpre and get the ycombinator open prompt
+b. RAG - 
+
+
+
+# data 
+1. car accidents and resource claims 
+2. goverment agency
+- input
+a. user description of the ecents
+b. image of the accident
+c. users history 
+d. police documents 
+
+# data processing 
+1. resizing image and taking a standard format for the ai models
+  a. 
+
+# models
+a. google gemini 2.5 pro
+b. LLABA from gemini
+c. Bert / DeREberta for legal context
+d. gpt 4.1
