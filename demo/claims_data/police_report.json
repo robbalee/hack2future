@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Police Report",
+  "description": "Schema for a police report related to an insurance claim incident.",
+  "type": "object",
+  "properties": {
+    "reportId": {
+      "type": "string",
+      "description": "Unique identifier for the police report."
+    },
+    "caseNumber": {
+      "type": "string",
+      "description": "Official case number assigned by the police department."
+    },
+    "incidentDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the incident occurred."
+    },
+    "reportDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the report was filed."
+    },
+    "reportingOfficer": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "badgeNumber": { "type": "string" },
+        "department": { "type": "string" }
+      },
+      "description": "Details of the officer who filed the report."
+    },
+    "incidentLocation": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "zipCode": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" }
+      },
+      "description": "Location where the incident occurred."
+    },
+    "incidentType": {
+      "type": "string",
+      "description": "Type of incident (e.g., traffic collision, theft, vandalism)."
+    },
+    "narrative": {
+      "type": "string",
+      "description": "Detailed description of the incident as reported."
+    },
+    "involvedParties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "partyId": { "type": "string", "description": "Identifier for the party, could be claimant's ID." },
+          "role": { "type": "string", "enum": ["Claimant", "Driver", "Passenger", "Witness", "Victim", "Suspect", "Owner"], "description": "Role of the party in the incident." },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "contact": {
+            "type": "object",
+            "properties": {
+              "phone": { "type": "string" },
+              "email": { "type": "string", "format": "email" },
+              "address": { "type": "string" }
+            }
+          },
+          "statement": { "type": "string", "description": "Statement provided by this party." },
+          "insuranceDetails": {
+            "type": "object",
+            "properties": {
+              "companyName": { "type": "string" },
+              "policyNumber": { "type": "string" }
+            }
+          }
+        },
+        "required": ["partyId", "role"]
+      },
+      "description": "List of individuals involved in or witnessing the incident."
+    },
+    "involvedVehicles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vehicleId": { "type": "string", "description": "Identifier for the vehicle, could be VIN." },
+          "ownerPartyId": { "type": "string", "description": "ID of the party who owns the vehicle." },
+          "driverPartyId": { "type": "string", "description": "ID of the party who was driving the vehicle." },
+          "make": { "type": "string" },
+          "model": { "type": "string" },
+          "year": { "type": "integer" },
+          "licensePlate": { "type": "string" },
+          "vin": { "type": "string" },
+          "damageDescription": { "type": "string" },
+          "estimatedDamageCost": { "type": "number" }
+        }
+      },
+      "description": "List of vehicles involved in the incident."
+    },
+    "witnessStatements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "witnessName": { "type": "string" },
+          "contactInfo": { "type": "string" },
+          "statement": { "type": "string" }
+        }
+      },
+      "description": "Statements from witnesses."
+    },
+    "citationsIssued": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "citationNumber": { "type": "string" },
+          "partyIdCited": { "type": "string", "description": "ID of the party who received the citation." },
+          "violationCode": { "type": "string" },
+          "violationDescription": { "type": "string" }
+        }
+      },
+      "description": "Any citations or violations recorded."
+    },
+    "diagramsOrPhotos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fileId": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      },
+      "description": "References to any diagrams or photos taken at the scene."
+    }
+  },
+  "required": ["reportId", "incidentDateTime", "incidentLocation", "narrative"]
+}

@@ -68,5 +68,5 @@ Thumbs.db
 
 # Application specific
 uploads/
-claims_data/
+
 *.log

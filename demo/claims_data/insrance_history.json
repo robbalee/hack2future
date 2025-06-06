@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claimant Insurance History",
+  "description": "Schema for the insurance history of a person making a claim.",
+  "type": "object",
+  "properties": {
+    "claimantId": {
+      "type": "string",
+      "description": "Unique identifier for the claimant (e.g., customer ID)."
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "dateOfBirth": { "type": "string", "format": "date" },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "zipCode": { "type": "string" }
+          }
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "phone": { "type": "string" },
+            "email": { "type": "string", "format": "email" }
+          }
+        }
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "policyId": { "type": "string" },
+          "policyNumber": { "type": "string" },
+          "insurerName": { "type": "string" },
+          "policyType": { "type": "string", "enum": ["Auto", "Home", "Renters", "Life", "Health", "Umbrella", "Other"] },
+          "status": { "type": "string", "enum": ["Active", "Expired", "Cancelled", "Lapsed"] },
+          "effectiveDate": { "type": "string", "format": "date" },
+          "expirationDate": { "type": "string", "format": "date" },
+          "coverageDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "coverageType": { "type": "string", "description": "e.g., Liability, Collision, Comprehensive, Medical Payments" },
+                "limit": { "type": "number" },
+                "deductible": { "type": "number" }
+              }
+            }
+          },
+          "premiumAmount": { "type": "number" },
+          "paymentFrequency": { "type": "string", "enum": ["Monthly", "Quarterly", "Semi-Annually", "Annually"] },
+          "namedInsureds": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "vehiclesCovered": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vin": { "type": "string" },
+                "make": { "type": "string" },
+                "model": { "type": "string" },
+                "year": { "type": "integer" }
+              }
+            }
+          },
+          "propertiesCovered": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "address": { "type": "string" },
+                "propertyType": { "type": "string", "enum": ["Single Family Home", "Condo", "Apartment"] }
+              }
+            }
+          }
+        },
+        "required": ["policyId", "insurerName", "policyType", "effectiveDate"]
+      },
+      "description": "List of current and past insurance policies held by the claimant."
+    },
+    "claimsHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claimId": { "type": "string" },
+          "associatedPolicyId": { "type": "string", "description": "Policy under which this claim was made." },
+          "incidentDate": { "type": "string", "format": "date" },
+          "reportDate": { "type": "string", "format": "date" },
+          "claimType": { "type": "string", "description": "e.g., Collision, Water Damage, Theft" },
+          "description": { "type": "string" },
+          "status": { "type": "string", "enum": ["Open", "Paid", "Denied", "Closed", "Withdrawn"] },
+          "amountClaimed": { "type": "number" },
+          "amountPaid": { "type": "number" },
+          "faultDetermination": { "type": "string", "enum": ["Claimant At Fault", "Other Party At Fault", "No Fault", "Shared Fault", "Undetermined"], "description": "Fault determination for the incident, if applicable." },
+          "relatedPoliceReportId": { "type": "string", "description": "Link to any police report for this claim." },
+          "insurerAtTimeOfClaim": { "type": "string" }
+        },
+        "required": ["claimId", "associatedPolicyId", "incidentDate", "claimType", "status"]
+      },
+      "description": "List of past claims made by or involving the claimant."
+    },
+    "riskFactors": {
+        "type": "object",
+        "properties": {
+            "drivingRecord": {
+                "type": "object",
+                "properties": {
+                    "accidentsLast3Years": { "type": "integer" },
+                    "ticketsLast3Years": { "type": "integer" },
+                    "licenseStatus": { "type": "string", "enum": ["Valid", "Suspended", "Revoked", "Expired"] }
+                }
+            },
+            "creditScoreTier": { "type": "string", "enum": ["Excellent", "Good", "Fair", "Poor"] },
+            "insuranceScore": { "type": "integer" },
+            "loyaltyYears": { "type": "integer", "description": "Years with the current or primary insurer." }
+        },
+        "description": "Factors relevant to assessing the claimant's risk profile."
+    }
+  },
+  "required": ["claimantId"]
+}
