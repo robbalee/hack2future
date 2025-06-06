@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vehicle Insurance Form",
+  "description": "Schema for a vehicle insurance claim form",
+  "type": "object",
+  "properties": {
+    "insuredInformation": {
+      "type": "object",
+      "title": "Information About Insured",
+      "properties": {
+        "policyCoverNoteNo": {
+          "type": "string",
+          "title": "Policy/Cover Note No."
+        },
+        "claimNo": {
+          "type": "string",
+          "title": "Claim No."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "correspondenceAddress": {
+          "type": "string",
+          "title": "Correspondence Address"
+        },
+        "district": {
+          "type": "string",
+          "title": "District"
+        },
+        "pinCode": {
+          "type": "string",
+          "title": "Pin Code"
+        },
+        "resTelNo": {
+          "type": "string",
+          "title": "Res. Tel. No."
+        },
+        "offTelNo": {
+          "type": "string",
+          "title": "Off. Tel. No."
+        },
+        "faxNo": {
+          "type": "string",
+          "title": "Fax No."
+        },
+        "mobile": {
+          "type": "string",
+          "title": "Mobile"
+        },
+        "emailId": {
+          "type": "string",
+          "format": "email",
+          "title": "E Mail Id"
+        },
+        "passportNumberResidentID": {
+          "type": "string",
+          "title": "Passport Number/Resident ID"
+        }
+      },
+      "required": [
+        "name",
+        "correspondenceAddress"
+      ]
+    },
+    "vehicleDetails": {
+      "type": "object",
+      "title": "Vehicle Details",
+      "properties": {
+        "registrationNo": {
+          "type": "string",
+          "title": "Registration No."
+        },
+        "make": {
+          "type": "string",
+          "title": "Make"
+        },
+        "model": {
+          "type": "string",
+          "title": "Model"
+        },
+        "dateOfRegistration": {
+          "type": "string",
+          "format": "date",
+          "title": "Date of Registration"
+        },
+        "mileageKms": {
+          "type": "number",
+          "title": "Mileage (kms)"
+        },
+        "chassisNo": {
+          "type": "string",
+          "title": "Chassis No."
+        },
+        "engineNo": {
+          "type": "string",
+          "title": "Engine No."
+        },
+        "classOfVehicle": {
+          "type": "string",
+          "enum": ["Private", "Commercial", "Wheeler"],
+          "title": "Class of Vehicle"
+        },
+        "hypothecationHirePurchaseAgreement": {
+          "type": "string",
+          "title": "Hypothecation / Hire purchase agreement"
+        }
+      },
+      "required": [
+        "registrationNo",
+        "make",
+        "model"
+      ]
+    },
+    "driverDetails": {
+      "type": "object",
+      "title": "Details About The Driver (At time of accident)",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "correspondenceAddress": {
+          "type": "string",
+          "title": "Correspondence Address"
+        },
+        "driverIs": {
+          "type": "string",
+          "enum": ["Owner", "Paid driver", "Relative", "Friend"],
+          "title": "Driver is"
+        },
+        "employmentDurationYrs": {
+          "type": "number",
+          "title": "If paid driver, how long has he been in your employment? (yrs)"
+        },
+        "underInfluence": {
+          "type": "boolean",
+          "title": "Was he under the influence of intoxicating liquor or drugs?"
+        },
+        "drivingLicenseNumber": {
+          "type": "string",
+          "title": "Driving license number"
+        },
+        "issuingAuthority": {
+          "type": "string",
+          "title": "Issuing authority"
+        },
+        "dateOfExpiry": {
+          "type": "string",
+          "format": "date",
+          "title": "Date of expiry"
+        },
+        "drivingLicenseType": {
+          "type": "string",
+          "enum": ["HGV", "LCV", "LMV", "Motor Cycle", "Scooter without Gear"],
+          "title": "Driving license type"
+        },
+        "endorsementsSuspensionDetails": {
+          "type": "string",
+          "title": "Details of endorsements, suspension if any"
+        },
+        "licenseTemporary": {
+          "type": "boolean",
+          "title": "Was the license temporary?"
+        }
+      },
+      "required": [
+        "name",
+        "drivingLicenseNumber"
+      ]
+    },
+    "accidentDetails": {
+      "type": "object",
+      "title": "Details Of Accident",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "title": "Date"
+        },
+        "time": {
+          "type": "string",
+          "format": "time",
+          "title": "Time"
+        },
+        "exactLocation": {
+          "type": "string",
+          "title": "Exact location of accident (Address / Spot of Accident with landmark)"
+        },
+        "briefDescription": {
+          "type": "string",
+          "title": "Give brief description of the accident"
+        },
+        "thirdPartyResponsible": {
+          "type": "boolean",
+          "title": "Was any third party responsible / liable for the accident?"
+        }
+      },
+      "required": [
+        "date",
+        "time",
+        "exactLocation",
+        "briefDescription"
+      ]
+    }
+  },
+  "required": [
+    "insuredInformation",
+    "vehicleDetails",
+    "driverDetails",
+    "accidentDetails"
+  ]
+}
