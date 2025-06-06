@@ -2,3 +2,5 @@
 2. plan about the problem to solve
 3. prepare prompts for the ai model that classify the claims
 4. prepare prompts for the ai model that generate the code
+
+# git stategy 

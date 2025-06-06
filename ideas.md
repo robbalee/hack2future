@@ -39,13 +39,18 @@ By leveraging AI and automation, insurers can streamline claims processing, impr
 
 # data 
 1. car accidents and resource claims 
-2. police report 
+2. police report - only if car is on movement 
+  - no police report for parked cars 
+  1. public insurance
+  2. private insurance
 
 - input
 a. user description of the events
 b. image of the accident (1 - 4 images)
 c. users history - insurance history ( and accident history )
-d. police documents -  a pdf document
+d. police report -  a pdf document
+e. insurance 
+e. cars history
 
 # data processing 
 1. resizing image for near - real time data processing and taking a standard format for the ai models
@@ -53,7 +58,7 @@ d. police documents -  a pdf document
 
 # models choice 
 a. google gemini 2.5 pro - multi modal 
-d. gpt 4.1 - multi modal
+d. gpt 4.1 - multi modal - azure openai 
 b. LLABA from gemini
 c. Bert / DeREberta for legal context
 
