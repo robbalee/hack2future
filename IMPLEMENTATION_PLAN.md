@@ -24,15 +24,51 @@ Target:  Web UI → Flask App → Azure Services → AI/ML → Monitoring
 
 ### Infrastructure Setup Complete (June 6, 2025)
 - **Terraform Configuration**: Successfully created and configured Terraform files for Azure
+- **Remote State Management**: 🎯 **CRITICAL: Always use remote state from Azure Storage**
+  - Backend Configuration:
+    ```hcl
+    terraform {
+      backend "azurerm" {
+        resource_group_name  = "hack2future"
+        storage_account_name = "secondstorageeu"
+        container_name       = "tfstate"
+        key                  = "insurance-fraud-detection.tfstate"
+      }
+    }
+    ```
 - **Resource Import**: All existing Azure resources imported into Terraform state:
   - ✅ Resource Group: `hack2future` (East US)
   - ✅ App Service Plan: `ASP-hack2future-a7e2` (B2 Windows)
   - ✅ Web App: `hack2future` (.NET 8.0 → to be migrated to Python)
   - ✅ Storage Account 1: `documentstoreeu` (Premium ZRS)
   - ✅ Storage Account 2: `secondstorageeu` (Standard RAGRS)
-  - ✅ Cognitive Services: `Hack2F` (OpenAI S0)
+  - ✅ Cosmos DB: `insurance-fraud-db-dev` with database `insurance-claims-db`
+  - ✅ Cosmos Containers: `claims` and `events` (with proper partition keys)
+  - ✅ Cognitive Services: `Hack2F` (OpenAI S0), `pawel1fraud` (General Cognitive Services)
 - **Remote State**: Terraform state successfully configured to use Azure Storage backend
 - **State File**: Located at `secondstorageeu/tfstate/insurance-fraud-detection.tfstate`
+
+### 🚨 MANDATORY Remote State Protocol
+**Before ANY Terraform operation, ALWAYS:**
+1. `cd /workspaces/hack2future/demo/terraform`
+2. `terraform init` - Connect to remote backend
+3. `terraform refresh` - Sync with actual Azure resources  
+4. `terraform show` - Verify current state matches expectations
+5. Never use `terraform destroy` or start from scratch
+6. Always plan before apply: `terraform plan` then `terraform apply`
+
+### 🎯 **Resource Dependency Analysis**
+**Independent Cognitive Services** (No networking dependencies):
+- `azurerm_cognitive_account.custom_vision_training` ✅ Standalone
+- `azurerm_cognitive_account.custom_vision_prediction` ✅ Standalone  
+- `azurerm_cognitive_account.fraud_detection` ✅ Standalone
+
+**Networking Resources** (Only used by Application Gateway):
+- `azurerm_virtual_network.main` → Only referenced by `azurerm_subnet.internal`
+- `azurerm_subnet.internal` → Only referenced by Application Gateway
+- `azurerm_public_ip.main` → Only referenced by Application Gateway
+
+**✅ CONCLUSION**: Cognitive Services are completely independent of networking resources and can be deployed separately.
 
 ### Next Priority: Phase 1 - Foundation Refactoring
 Ready to proceed with code structure refactoring and basic fraud detection implementation.

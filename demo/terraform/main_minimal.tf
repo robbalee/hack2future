@@ -1,0 +1,110 @@
+# Configure the Azure Provider
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+}
+
+# Import existing resource group
+resource "azurerm_resource_group" "main" {
+  name     = "hack2future"
+  location = "East US"
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+  }
+}
+
+# Import existing App Service Plan
+resource "azurerm_service_plan" "main" {
+  name                = "ASP-hack2future-a7e2"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  os_type             = "Windows"
+  sku_name            = "B2"
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+  }
+}
+
+# Import existing Web App  
+resource "azurerm_windows_web_app" "main" {
+  name                = "hack2future"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_service_plan.main.location
+  service_plan_id     = azurerm_service_plan.main.id
+
+  site_config {
+    always_on = false
+    
+    application_stack {
+      python_version = "3.11"
+    }
+  }
+
+  app_settings = {
+    "COSMOS_ENDPOINT" = azurerm_cosmosdb_account.main.endpoint
+    "COSMOS_KEY"      = azurerm_cosmosdb_account.main.primary_key
+    "COSMOS_DATABASE" = azurerm_cosmosdb_sql_database.main.name
+  }
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+  }
+}
+
+# Import existing primary storage account
+resource "azurerm_storage_account" "main" {
+  name                     = "documentstoreeu"
+  resource_group_name      = azurerm_resource_group.main.name
+  location                 = azurerm_resource_group.main.location
+  account_tier             = "Premium"
+  account_replication_type = "ZRS"
+  account_kind             = "FileStorage"
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+  }
+}
+
+# Import existing secondary storage account  
+resource "azurerm_storage_account" "secondary" {
+  name                     = "secondstorageeu"
+  resource_group_name      = azurerm_resource_group.main.name
+  location                 = azurerm_resource_group.main.location
+  account_tier             = "Standard"
+  account_replication_type = "RAGRS"
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+  }
+}
+
+# Import existing OpenAI Cognitive Services
+resource "azurerm_cognitive_account" "openai" {
+  name                = "Hack2F"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  kind                = "OpenAI"
+  sku_name            = "S0"
+
+  tags = {
+    environment = var.environment
+    project     = "insurance-fraud-detection"
+    service     = "openai"
+  }
+}
