@@ -2,7 +2,7 @@
 
 # Demo uploads - ignore user uploaded files
 demo/uploads/
-demo/claims_data/
+
 
 # Common file types that shouldn't be tracked
 *.pdf
