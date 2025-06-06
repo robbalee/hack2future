@@ -1,0 +1,17 @@
+{
+  "claim_id": "test-sample-claim-001",
+  "claim_amount": 2500.00,
+  "description": "Sample vehicle accident claim for testing purposes",
+  "submission_time": "2025-06-06T10:30:00",
+  "status": "pending",
+  "fraud_score": null,
+  "uploaded_files": [
+    "police_report.pdf",
+    "damage_photos.jpg"
+  ],
+  "claimant_info": {
+    "name": "Test Claimant",
+    "policy_number": "POL-123456789",
+    "contact": "test@example.com"
+  }
+}

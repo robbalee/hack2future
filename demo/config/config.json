@@ -1,0 +1,19 @@
+{
+    "app": {
+        "debug": true,
+        "upload_folder": "uploads",
+        "max_file_size": 16777216,
+        "allowed_extensions": ["pdf", "png", "jpg", "jpeg", "gif"]
+    },
+    "storage": {
+        "claims_dir": "claims_data",
+        "events_dir": "events_data",
+        "backup_dir": "backups"
+    },
+    "database": {
+        "use_cosmos": true,
+        "cosmos_database": "insurance-claims-db",
+        "cosmos_claims_container": "claims",
+        "cosmos_events_container": "events"
+    }
+}

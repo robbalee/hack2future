@@ -1,0 +1,36 @@
+[
+  {
+    "event_id": "event-001",
+    "entity_id": "test-sample-claim-001",
+    "entity_type": "claim",
+    "event_type": "submitted",
+    "timestamp": "2025-06-06T10:30:00",
+    "data": {
+      "source": "web_portal",
+      "user_agent": "Mozilla/5.0 Test Browser"
+    }
+  },
+  {
+    "event_id": "event-002",
+    "entity_id": "test-sample-claim-001",
+    "entity_type": "claim",
+    "event_type": "document_uploaded",
+    "timestamp": "2025-06-06T10:31:00",
+    "data": {
+      "filename": "police_report.pdf",
+      "file_size": 245760,
+      "upload_method": "browser"
+    }
+  },
+  {
+    "event_id": "event-003",
+    "entity_id": "test-sample-claim-001",
+    "entity_type": "claim",
+    "event_type": "fraud_check_started",
+    "timestamp": "2025-06-06T10:32:00",
+    "data": {
+      "check_type": "automated",
+      "risk_factors": ["high_amount", "recent_policy"]
+    }
+  }
+]

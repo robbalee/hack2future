@@ -56,3 +56,36 @@ output "cognitive_account_endpoint" {
   description = "Cognitive Services endpoint"
   value       = azurerm_cognitive_account.openai.endpoint
 }
+
+# Cosmos DB Outputs
+output "cosmos_db_endpoint" {
+  description = "Endpoint for the Cosmos DB account"
+  value       = azurerm_cosmosdb_account.main.endpoint
+}
+
+output "cosmos_db_primary_key" {
+  description = "Primary key for the Cosmos DB account"
+  value       = azurerm_cosmosdb_account.main.primary_key
+  sensitive   = true
+}
+
+output "cosmos_db_connection_string" {
+  description = "Connection string for the Cosmos DB account"
+  value       = azurerm_cosmosdb_account.main.connection_strings[0]
+  sensitive   = true
+}
+
+output "cosmos_db_name" {
+  description = "Name of the Cosmos DB SQL database"
+  value       = azurerm_cosmosdb_sql_database.main.name
+}
+
+output "cosmos_claims_container" {
+  description = "Name of the Cosmos DB container for claims"
+  value       = azurerm_cosmosdb_sql_container.claims.name
+}
+
+output "cosmos_events_container" {
+  description = "Name of the Cosmos DB container for events"
+  value       = azurerm_cosmosdb_sql_container.events.name
+}
