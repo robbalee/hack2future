@@ -72,3 +72,9 @@ c. Bert / DeREberta for legal context
 7. data store: object storage / adls gen2 for images, documents, highly optimized for real-time application db for metadata store, maybe cosmosdb ?
   a. adls gen2 with cosmosdb 
 8. input validation: multi-staged check starting with file type checks to file content checks for pdf to virus scanning for user uploaded documents and pictures.    
+
+
+https://studio.firebase.google.com/
+Sylvia Suresh
+12:22 AM
+https://aistudio.google.com/apikey

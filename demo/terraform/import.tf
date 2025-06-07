@@ -36,35 +36,15 @@ resource "azurerm_service_plan" "main" {
   }
 }
 
-# Import existing Web App  
-resource "azurerm_windows_web_app" "main" {
-  name                = "hack2future"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_service_plan.main.location
-  service_plan_id     = azurerm_service_plan.main.id
-
-  site_config {
-    # Match the current configuration (.NET)
-    always_on = false
-    
-    application_stack {
-      current_stack  = "dotnet"
-      dotnet_version = "v8.0"
-    }
-  }
-
-  tags = {
-    "dev " = "kacper"
-  }
-}
+# Removed Windows Web App - creating new Linux App Service in app_service.tf
 
 # Import existing Storage Account (Document Store)
 resource "azurerm_storage_account" "main" {
   name                     = "documentstoreeu"
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
-  account_tier             = "Premium"
-  account_replication_type = "ZRS"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
   account_kind             = "StorageV2"
 
   tags = {
@@ -78,7 +58,7 @@ resource "azurerm_storage_account" "secondary" {
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
-  account_replication_type = "RAGRS"
+  account_replication_type = "LRS"
   account_kind             = "StorageV2"
 
   tags = {}
@@ -91,7 +71,6 @@ resource "azurerm_cognitive_account" "openai" {
   location                      = azurerm_resource_group.main.location
   kind                          = "OpenAI"
   sku_name                      = "S0"
-  custom_subdomain_name         = "hack2f"
 
   tags = {}
 }

@@ -75,3 +75,8 @@ resource "azurerm_cosmosdb_sql_container" "events" {
     }
   }
 }
+
+# Role assignment moved to app_service.tf for the Linux Flask app
+
+# Data source to get current Azure subscription info
+data "azurerm_client_config" "current" {}

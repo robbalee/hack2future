@@ -45,6 +45,11 @@ resource "azurerm_windows_web_app" "main" {
   location            = azurerm_service_plan.main.location
   service_plan_id     = azurerm_service_plan.main.id
 
+  # Enable System-Assigned Managed Identity
+  identity {
+    type = "SystemAssigned"
+  }
+
   site_config {
     always_on = false
     
@@ -54,9 +59,15 @@ resource "azurerm_windows_web_app" "main" {
   }
 
   app_settings = {
-    "COSMOS_ENDPOINT" = azurerm_cosmosdb_account.main.endpoint
-    "COSMOS_KEY"      = azurerm_cosmosdb_account.main.primary_key
-    "COSMOS_DATABASE" = azurerm_cosmosdb_sql_database.main.name
+    # Managed Identity Configuration - No more keys needed!
+    "COSMOS_ENDPOINT"     = azurerm_cosmosdb_account.main.endpoint
+    "COSMOS_DATABASE"     = azurerm_cosmosdb_sql_database.main.name
+    "AZURE_CLIENT_ID"     = "managed_identity"  # Indicates to use managed identity
+    "USE_MANAGED_IDENTITY" = "true"
+    
+    # Environment configuration
+    "FLASK_ENV"           = var.environment
+    "PYTHONPATH"          = "/home/site/wwwroot"
   }
 
   tags = {

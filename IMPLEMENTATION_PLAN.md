@@ -39,7 +39,7 @@ Target:  Web UI → Flask App → Azure Services → AI/ML → Monitoring
 - **Resource Import**: All existing Azure resources imported into Terraform state:
   - ✅ Resource Group: `hack2future` (East US)
   - ✅ App Service Plan: `ASP-hack2future-a7e2` (B2 Windows)
-  - ✅ Web App: `hack2future` (.NET 8.0 → to be migrated to Python)
+  - ⚠️ **Web App: `hack2future` - DO NOT USE! This web app is configured for another developer and should not be modified or used for our Python Flask project. We need to create a new Linux-based App Service for our insurance fraud detection system.**
   - ✅ Storage Account 1: `documentstoreeu` (Premium ZRS)
   - ✅ Storage Account 2: `secondstorageeu` (Standard RAGRS)
   - ✅ Cosmos DB: `insurance-fraud-db-dev` with database `insurance-claims-db`
@@ -70,8 +70,24 @@ Target:  Web UI → Flask App → Azure Services → AI/ML → Monitoring
 
 **✅ CONCLUSION**: Cognitive Services are completely independent of networking resources and can be deployed separately.
 
-### Next Priority: Phase 1 - Foundation Refactoring
-Ready to proceed with code structure refactoring and basic fraud detection implementation.
+### ✅ **Azure Flask App Service Deployment Complete (June 7, 2025)**
+- **Linux App Service Plan**: `insurance-fraud-flask-plan` (B2 tier) ✅ DEPLOYED
+- **Linux Web App**: `insurance-fraud-detection-app` ✅ DEPLOYED
+  - URL: https://insurance-fraud-detection-app.azurewebsites.net
+  - Managed Identity: `52075a18-84bf-40dc-8be2-5adaafbd2be4`
+  - Python 3.11 runtime with production-ready configuration
+- **Storage Containers**: `uploads`, `documents`, `processed` ✅ CREATED
+- **Role Assignments**: ✅ CONFIGURED
+  - Cosmos DB Data Contributor
+  - Storage Blob Data Contributor  
+  - Cognitive Services OpenAI User
+  - Cognitive Services User
+- **Existing Windows Infrastructure**: ✅ PRESERVED
+  - Windows App Service Plan: `ASP-hack2future-a7e2` (maintained)
+  - All Cognitive Services: OpenAI, Custom Vision, Fraud Detection (maintained)
+
+### Next Priority: Flask App Code Deployment
+Ready to deploy the Python Flask application code to Azure App Service.
 
 ## Incremental Development Strategy
 
@@ -366,3 +382,40 @@ This approach ensures we have a working system at each step and can debug issues
 - Monitoring tools (Application Insights)
 
 This comprehensive plan provides a roadmap for building a production-ready insurance fraud detection system with clear phases, deliverables, and success criteria.
+
+### 🚨 **CRITICAL NOTE: Web App Infrastructure**
+**The existing `hack2future` web app is configured for another developer and MUST NOT be used for our Python Flask insurance fraud detection project.**
+
+**Required Action:**
+- Create NEW Linux-based App Service Plan specifically for our Python Flask application
+- Use separate naming convention (e.g., `insurance-fraud-app`, `fraud-detection-service`)
+- Ensure our infrastructure is completely isolated from existing web app
+- Configure proper Python runtime environment on Linux App Service
+
+**Impact on Implementation Plan:**
+- Phase 2.1 must include creating new App Service infrastructure
+- No migration needed - we build from scratch with proper architecture
+- Enables clean managed identity implementation without conflicts
+
+
+----
+azurerm_application_insights.main
+azurerm_cognitive_account.custom_vision_prediction
+azurerm_cognitive_account.custom_vision_training
+azurerm_cognitive_account.fraud_detection
+azurerm_cognitive_account.openai
+azurerm_container_registry.main
+azurerm_cosmosdb_account.main
+azurerm_cosmosdb_sql_container.claims
+azurerm_cosmosdb_sql_container.events
+azurerm_cosmosdb_sql_database.main
+azurerm_eventgrid_topic.main
+azurerm_log_analytics_workspace.main
+azurerm_public_ip.main
+azurerm_resource_group.main
+azurerm_service_plan.main
+azurerm_storage_account.main
+azurerm_storage_account.secondary
+azurerm_subnet.internal
+azurerm_virtual_network.main
+azurerm_windows_web_app.main

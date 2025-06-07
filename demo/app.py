@@ -18,6 +18,10 @@ import os
 import uuid
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Import our new services and models
 from models import Claim, FileInfo
