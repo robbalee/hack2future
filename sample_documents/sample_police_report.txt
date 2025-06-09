@@ -1,0 +1,42 @@
+Police Department Report
+Case Number: 2025-001234
+Date of Incident: 2025-05-15
+Time of Incident: 14:30
+Location: Intersection of Main St and Oak Ave
+
+Reporting Officer: Officer K. Miller, Badge #789
+
+Vehicle 1:
+Make: Honda
+Model: Civic
+Year: 2022
+License Plate: ABC-123
+Driver: John Doe
+Address: 123 Maple Lane
+Insurance: AllState, Policy #987654321
+
+Vehicle 2:
+Make: Ford
+Model: F-150
+Year: 2020
+License Plate: XYZ-789
+Driver: Jane Smith
+Address: 456 Pine St
+Insurance: Geico, Policy #123456789
+
+Incident Description:
+Vehicle 1 was proceeding eastbound on Main St. Vehicle 2 was proceeding northbound on Oak Ave. Vehicle 2 failed to stop at the red light and collided with Vehicle 1 in the intersection.
+Driver of Vehicle 1 reported minor neck pain. Driver of Vehicle 2 reported no injuries.
+Both vehicles sustained moderate front-end damage. Vehicle 1 was towed from the scene. Vehicle 2 was drivable.
+
+Witnesses:
+Name: Robert Jones
+Address: 789 Birch Rd
+Statement: Confirmed Vehicle 2 ran the red light.
+
+Diagram: (Sketch of intersection with vehicle positions and direction of travel) - Not representable in TXT
+
+Citations Issued:
+To Driver of Vehicle 2 for violation of traffic signal.
+
+End of Report.

@@ -1,0 +1,28 @@
+Insurance History Report
+Policyholder: John Doe
+Policy Number: 987654321
+Provider: AllState
+
+Claim History:
+
+Claim ID: CLM-2023-001
+Date of Incident: 2023-01-20
+Type: Minor Collision (Rear-end)
+Description: Other party at fault. Minor bumper damage.
+Amount Paid: $750.00
+Status: Closed
+
+Claim ID: CLM-2021-005
+Date of Incident: 2021-07-10
+Type: Comprehensive (Hail Damage)
+Description: Vehicle sustained hail damage during a storm.
+Amount Paid: $2,500.00
+Status: Closed
+
+No other claims in the past 5 years.
+Policy Start Date: 2020-03-01
+Current Status: Active
+Coverage: Full Coverage (Collision, Comprehensive, Liability)
+Deductibles: Collision - $500, Comprehensive - $250
+
+End of Report.

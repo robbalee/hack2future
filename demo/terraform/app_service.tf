@@ -38,10 +38,11 @@ resource "azurerm_linux_web_app" "flask_app" {
     "FLASK_ENV"                = "production"
     "FLASK_APP"                = "app.py"
     
-    # Cosmos DB configuration using managed identity
+    # Cosmos DB configuration using keys (Option 1)
     "COSMOS_ENDPOINT"          = azurerm_cosmosdb_account.main.endpoint
     "COSMOS_DATABASE"          = azurerm_cosmosdb_sql_database.main.name
-    "USE_MANAGED_IDENTITY"     = "true"
+    "COSMOS_KEY"               = azurerm_cosmosdb_account.main.primary_key
+    "USE_MANAGED_IDENTITY"     = "false"
     
     # Storage account configuration
     "AZURE_STORAGE_ACCOUNT"    = azurerm_storage_account.main.name

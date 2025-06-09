@@ -1,0 +1,84 @@
+Insurance Claim Form - Auto Accident
+
+Policy Information:
+Policy Number: 987654321
+Insured Name: John Doe
+Date of Birth: 1985-08-15
+Phone Number: 555-0101
+Email Address: john.doe@example.com
+
+Accident Details:
+Date of Accident: 2025-05-15
+Time of Accident: 02:30 PM
+Location of Accident (Address or Intersection): Intersection of Main St and Oak Ave
+City: Anytown
+State: CA
+Zip Code: 90210
+
+Police Report Filed? (Yes/No): Yes
+If Yes, Police Department: Anytown Police Department
+Police Report Number: 2025-001234
+
+Your Vehicle Information:
+Make: Honda
+Model: Civic
+Year: 2022
+License Plate Number: ABC-123
+VIN: JH123456789012345
+Was your vehicle drivable after the accident? (Yes/No): No
+
+Driver Information (if different from Insured):
+Driver's Full Name: John Doe
+Driver's License Number: D1234567
+Relationship to Insured: Self
+
+Description of Accident:
+(Provide a detailed account of how the accident occurred. Include road conditions, weather, direction of travel for all vehicles involved, etc.)
+I was driving eastbound on Main St, approaching the intersection with Oak Ave. The traffic light for my direction was green. A Ford F-150, traveling northbound on Oak Ave, failed to stop for its red light and entered the intersection, striking the front passenger side of my vehicle. The weather was clear and the road was dry.
+
+Damage to Your Vehicle:
+(Describe the damage to your vehicle. E.g., front bumper, driver-side door, etc.)
+Significant damage to the front passenger-side fender, passenger door, and front axle. Airbags deployed.
+Estimated Repair Cost (if known): $8,500
+
+Other Vehicle(s) Involved:
+Vehicle 1:
+Driver's Name: Jane Smith
+Driver's Phone: 555-0202
+Driver's Insurance Company: Geico
+Driver's Policy Number: 123456789
+Vehicle Make/Model/Year: Ford F-150 / 2020
+License Plate: XYZ-789
+Damage to Other Vehicle: Moderate front-end damage.
+
+Vehicle 2 (if applicable):
+Driver's Name: [Enter Name]
+Driver's Phone: [Enter Phone]
+Driver's Insurance Company: [Enter Company]
+Driver's Policy Number: [Enter Policy #]
+Vehicle Make/Model/Year: [Enter Make/Model/Year]
+License Plate: [Enter License Plate]
+Damage to Other Vehicle: [Describe Damage]
+
+Injuries:
+Were there any injuries? (Yes/No): Yes
+If Yes, please  details for each injured person:
+Person 1 Name: John Doe
+Injury Description: Minor neck pain, whiplash.
+Taken to Hospital? (Yes/No): No (Visited doctor next day)
+If Yes, Hospital Name: [Enter Hospital Name]
+
+Witnesses:
+Name: Robert Jones
+Phone: 555-0303
+Statement (briefly): Stated he saw the Ford F-150 run the red light.
+
+Declaration:
+I declare that the information provided on this form is true and correct to the best of my knowledge.
+Signature: John Doe
+Date: 2025-05-16
+
+--- For Insurance Company Use Only ---
+Claim Number Assigned:
+Adjuster Assigned:
+Date Received:

@@ -3,6 +3,13 @@
 # Demo uploads - ignore user uploaded files
 demo/uploads/
 
+# Kudu logs and deployment files
+kudu_*.log
+**/kudu_*.log
+demo/terraform/LogFiles/
+demo/terraform/deployments/
+demo/terraform/app-logs.zip
+*.zip
 
 # Common file types that shouldn't be tracked
 *.pdf

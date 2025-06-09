@@ -5,6 +5,7 @@ This service provides methods to interact with Azure Cosmos DB.
 import os
 from typing import Dict, List, Any, Optional, Union
 from azure.cosmos import CosmosClient, PartitionKey, exceptions
+from azure.identity import DefaultAzureCredential
 from utils.config import Config
 from models.claim import Claim
 from models.event import Event
@@ -17,24 +18,36 @@ class CosmosDBService:
         """Initialize the Cosmos DB service"""
         config = Config()
         self.endpoint = config.get('database.cosmos_endpoint', os.environ.get('COSMOS_ENDPOINT', ''))
-        self.key = config.get('database.cosmos_key', os.environ.get('COSMOS_KEY', ''))
-        self.database_name = config.get('database.cosmos_database', 'insurance-claims-db')
+        self.database_name = config.get('database.cosmos_database', os.environ.get('COSMOS_DATABASE', 'insurance-claims-db'))
         self.claims_container_name = config.get('database.cosmos_claims_container', 'claims')
         self.events_container_name = config.get('database.cosmos_events_container', 'events')
         
+        # Check for managed identity usage
+        use_managed_identity = os.environ.get('USE_MANAGED_IDENTITY', 'false').lower() == 'true'
+        
         # Check if we have the necessary configuration
-        if not self.endpoint or not self.key:
+        if not self.endpoint:
             self.client = None
             self.database = None
             self.claims_container = None
             self.events_container = None
-            print("Cosmos DB connection not configured. Missing endpoint or key.")
+            print("Cosmos DB connection not configured. Missing endpoint.")
             return
             
         try:
             # Initialize the Cosmos client
-            print(f"Connecting to Cosmos DB at {self.endpoint[:30]}...")
-            self.client = CosmosClient(self.endpoint, self.key)
+            print(f"Connecting to Cosmos DB at {self.endpoint[:50]}...")
+            
+            if use_managed_identity:
+                print("Using Managed Identity for Cosmos DB authentication")
+                credential = DefaultAzureCredential()
+                self.client = CosmosClient(self.endpoint, credential)
+            else:
+                print("Using key-based authentication for Cosmos DB")
+                self.key = config.get('database.cosmos_key', os.environ.get('COSMOS_KEY', ''))
+                if not self.key:
+                    raise ValueError("Cosmos DB key not found in configuration or environment variables")
+                self.client = CosmosClient(self.endpoint, self.key)
             
             # Get database
             self.database = self.client.get_database_client(self.database_name)
