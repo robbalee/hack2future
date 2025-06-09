@@ -78,3 +78,12 @@ https://studio.firebase.google.com/
 Sylvia Suresh
 12:22 AM
 https://aistudio.google.com/apikey
+
+
+"A clean, modern illustration depicting a seamless digital interaction for insurance claims. Show abstract representations of data flowing smoothly between a diverse consumer, a professional insurance company emblem (like a stylized shield or building), and a subtle AI neural network motif. The overall mood should be trustworthy, efficient, and slightly futuristic, with a soft blue and green color palette. Emphasize clarity and ease-of-use. Minimalist style, high-tech aesthetic."
+ 
+
+
+ A sophisticated and abstract visualization of AI processing data into clear insights for insurance. Depict glowing data streams or nodes transforming into a clean, easily understandable chart or graph element, possibly on a holographic interface. The style should be sleek, professional, and convey intelligence and clarity. Use a palette with blues, greens, and hints of a neutral light gray. Focus on the concept of 'data to decision' in a high-tech, non-cluttered way."
+
+ 
